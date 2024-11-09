@@ -7,7 +7,9 @@ Here laravel11, Bootstrap and MySql are used
 ## Screenshots
 
 ![Laravel blade pms](https://laravelcodesnippets.com/images/github/pms-crud/laravel-pms-1.png)
+
 ![Laravel blade pms](https://laravelcodesnippets.com/images/github/pms-crud/laravel-pms-2.png)
+
 ![Laravel blade pms](https://laravelcodesnippets.com/images/github/pms-crud/laravel-pms-3.png)
 
 ## Following features are implemented
@@ -18,7 +20,6 @@ Here laravel11, Bootstrap and MySql are used
 - Deleting a product
 - Sorting by name and price
 - Searching functionality by product_id, name or description from product listing page
-- When transaction fails it shows failed message just under checkout submit button
 
 
 ## How to use

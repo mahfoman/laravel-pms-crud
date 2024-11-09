@@ -5,34 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
 {
     //
-    // create index listing products with pagination and with search filter product_id and description
     public function index(Request $request)
     {
         $orderColumn = request('order_column', 'name');
 
-        $orderDirection = request('order_direction', 'desc');
+        $orderDirection = request('order_direction', 'asc');
         if (!in_array($orderDirection, ['asc', 'desc'])) {
             $orderDirection = 'desc';
         }
 
-        $products = Product::where('product_id', 'like', '%' . $request->search . '%')
-            ->orWhere('description', 'like', '%' . $request->search . '%')
+        $products = Product::when(request('search'), function (Builder $query) {
+                $query->where('product_id', request('search'))
+                    ->orWhere('name', 'like', '%' . request('search') . '%')
+                    ->orWhere('description', 'like', '%' . request('search') . '%');
+            })
             ->orderBy( $orderColumn, $orderDirection )
             ->paginate(10);
         return view('products.index', compact('products','orderDirection', 'orderColumn'));
     }
 
-    // create new product
     public function create()
     {
         return view('products.create');
     }
 
-    // store new product
     public function store(Request $request)
     {
         $request->validate([

@@ -4,8 +4,18 @@
         <div class="row align-center justify-content-center">
             <div class="col-xl-12">
                 @include('flash-message')
-                <h1 class="float-start me-2">Products</h1>
-                <div class="float-end mt-2"><a href="/products/create" class="btn btn-sm btn-primary">Create</a></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="me-2">Products</h1>
+
+                    <form method="GET" action="/products" class="d-flex">
+                        <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Search by product id or Title" value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Search</button>
+                    </form>
+
+                    <div class="ms-2">
+                        <a href="/products/create" class="btn btn-sm btn-primary">Create</a>
+                    </div>
+                </div>
                 <table class="table table-striped mt-3">
                     <tr>
                         <th>
@@ -49,11 +59,11 @@
                                 <img src="{{  (isset($product->image)) ? asset('/product_images/'.$product->image) :'/img/no-image.jpg' }}" alt="" style="width:100px;" class="">
                             </td>
                             <td>
-                                <a href="/products/{{ $product->id }}/edit" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="/products/{{ $product->id }}/edit" class="btn btn-sm btn-dark text-white"><i class="fa fa-edit"></i></a>
                                 <form action="/products/{{ $product->id }}" method="POST" class="d-inline-block resource-delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>
                                 </form>
                             </td>
                         </tr>
